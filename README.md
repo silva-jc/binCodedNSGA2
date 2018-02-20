@@ -1,5 +1,5 @@
 # binCodedNSGA2
-constrained binary coded NSGA-II for research purposes
+*A constrained binary coded NSGA-II for research purposes*
 
 The motivation for the development of this code was the necessity to handle nonconvex nonlinear mixed integer multiobjective optimisation
 problems, which can't be solved by commercial solvers in an acceptable period of time.
