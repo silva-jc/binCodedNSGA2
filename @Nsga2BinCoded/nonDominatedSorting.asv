@@ -61,18 +61,15 @@ function nonDominated = getNDFront(obj, allIdx, Rt, OCV, feasible)
                 if(~ismember(j,allIdx)) %if j is not contained in any Front...
                     if(~dominated) 
                         if((~feasible(i)) && (~feasible(j))) %if both are infeasible
-                            if(OCV(i) > OCV(j))
-                                %fprintf('\n%dOCV > %dOCV (%d,%d infeasible), then %d is dominated',i,j,i,j,i);
+                            if(OCV(i) < OCV(j))
+                                fprintf('%dOCV < %dOCV (%d,%d infeasible)', i, j ,i,j);
                                 dominated = 1; %i is constrain-dominated by j in respect to OCV
                             end
                         else
                             if((~feasible(i)) && feasible(j)) %if i is infeasible but j is feasible
-                                %fprintf('\n%d is infeasible and %d is feasible, then %d is dominated',i,j,i);
                                 dominated = 1; %i is constrain-dominated by j in respect to feasibility
-                            else 
-                                if(feasible(i) && feasible(j)) %if both are feasible
-                                    dominated = ObjDominated(obj, Rt, i, j); %check domination in the usual sense
-                                end
+                            else %if both are feasible
+                                dominated = ObjDominated(obj, Rt, i, j); %check domination in the usual sense
                             end
                         end
                     end
@@ -107,7 +104,7 @@ function dominated = ObjDominated(obj, Rt, i, j) %check domination in respect to
         fm_j = obj.problem.prefDir(m)*Rt(j,m);
         if(fm_i - fm_j < 0) %check objective m
             countcrit = countcrit + 1;
-            %fprintf('\n%d dominates %d in respect to F%d' , j, i, m);
+            fprintf('\n%d dominates %d in respect to F%d' , j, i, m);
         else
             if(fm_i - fm_j == 0)
                 countdraws = countdraws + 1; 
@@ -116,7 +113,7 @@ function dominated = ObjDominated(obj, Rt, i, j) %check domination in respect to
         if(countdraws == obj.problem.m) %i is equal to j 
         else
             if(countcrit + countdraws == obj.problem.m) %if i couldn't win in any obj
-                %fprintf('\n->%d dominates %d' , j, i);
+                fprintf('\n->%d dominates %d' , j, i);
                 dominated = 1;
             end
         end

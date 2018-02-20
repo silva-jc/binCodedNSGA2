@@ -8,7 +8,7 @@ fprintf('\n=== Starting Constrained NSGA2 test ===\n')
 nVars = 2;
 problem = Problem([-1 -1], nVars);
 %set NSGA-II parameters
-nGenerations = 500;
+nGenerations = 1;
 nIndividuals = 40;
 nBits = 26; %number of genes
 pC = 0.9; %crossover probability
@@ -18,7 +18,7 @@ probs = [pC pM];
 mobjga = Nsga2BinCoded(nIndividuals, nBits, probs, problem);
 %start loop
 tic = cputime;
-for gen = 1:nGenerations 
+for gen = 1:nGenerations %plus one because we apply the elite operator in the last gen's solution, for example...if you want 500 generations you need to apply elitism of gen501 in the last solution(gen500), using
     fprintf('\ngeneration %d', gen);
     %non-dominated sorting
     [mobjga.F ,mobjga.Rt] = mobjga.nonDominatedSorting(); 
@@ -50,7 +50,6 @@ f1optc = paretoConstrained(:,1);
 f2optc = paretoConstrained(:,2); 
 plot(f1opt, f2opt,'b--');
 hold on
-
 plot(f1optc, f2optc ,'b');
 plot(f1, f2, 'k*');
 title('NSGA-II Test');
