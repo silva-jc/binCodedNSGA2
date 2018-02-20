@@ -11,9 +11,6 @@ classdef Problem
     end
     methods
         function obj = Problem(prefDir, nv)
-            %{
-            Minimization example problem: Min-Ex - Deb2003book, pg.166
-            %}
             obj.nVars = nv;
             obj.prefDir = prefDir;
             obj.m = length(prefDir);
