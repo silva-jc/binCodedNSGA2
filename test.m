@@ -1,7 +1,8 @@
-%Constraint Handling (using Constrained tournament Method)validation...
-%STILL VALIDATING!
+%Constraint Handling (using constrain-domination)validation...
+%VALIDATED!
 clear
 clc
+%addpath([pwd '\BIN\']);
 fprintf('\n=== Starting Constrained NSGA2 test ===\n')
 
 %define your optimisation problem

@@ -9,15 +9,14 @@ function [newParentPopIdxs, newParentPop, distances] = getCrowdingDistances(obj,
         end
         di = zeros(1,nsols); %initialize dis
         for m = 1:obj.problem.m
-            fmax = obj.problem.FMAX(m);
-            fmin = obj.problem.FMIN(m);
             [~,sortedIdx] = sort(F_Rt(:,m), 'ascend'); %sorted index vector for m;
             %assign a large distance to the boundary solutions
             di(sortedIdx(1)) = sortedIdx(1) + Inf;
             di(sortedIdx(nsols)) =  di(sortedIdx(nsols)) + Inf;
             for i = 2:nsols-1 %loop over sortedIdx
                 di(sortedIdx(i)) = di(sortedIdx(i)) + ...
-                (F_Rt(sortedIdx(i+1),m) - F_Rt(sortedIdx(i-1),m))/(fmax - fmin);
+                (F_Rt(sortedIdx(i+1),m) - F_Rt(sortedIdx(i-1),m))/...
+                    (F_Rt(sortedIdx(nsols),m) - F_Rt(sortedIdx(1),m));
             end
         end
         [diVals_sorted,dsorted] = sort(di,'descend');

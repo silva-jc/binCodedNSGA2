@@ -28,11 +28,15 @@ classdef Problem
             obj.lb = [0.1 0];
             obj.ub = [1 5];
             %get max and min for each objfunc
+            %{
             obj.FMAX = zeros(1,obj.m);
             obj.FMIN = zeros(1,obj.m);
             for m = 1:obj.m
                 [obj.FMIN(m), obj.FMAX(m)] = obj.getMinMax(m);
             end
+            obj.FMAX(1) = 100;obj.FMAX(2) = 100;
+            obj.FMIN(1) = 0;obj.FMIN(2) = 0;
+            %}
         end
         function F = getFitness(obj, m, x)
             f = obj.F{1,m}; %get anonymous function of the mth objective
